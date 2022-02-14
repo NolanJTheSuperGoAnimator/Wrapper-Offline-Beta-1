@@ -11,10 +11,9 @@ const http = require("http");
 async function listAssets(data, makeZip) {
 	var xmlString;
 	var files;
-	const chars;
 	switch (data.type) {
 		case "char": {
-			chars = await asset.chars(data.themeId);
+			const chars = await asset.chars(data.themeId);
 			xmlString = `${header}<ugc more="0">${chars
 				.map(
 					(v) =>
