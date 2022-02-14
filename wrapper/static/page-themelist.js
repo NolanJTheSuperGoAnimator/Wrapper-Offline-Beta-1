@@ -100,13 +100,13 @@ module.exports = function (req, res, url) {
 	<div id="column1">
 		<div class="theme pick_creation">
 			<div onclick="characterThemes()">
-				<img src="../img/themelist/Character.png" alt="Create a character">
+				<img src="/pages/img/themelist/Character.png" alt="Create a character">
 				<p>Character</p>
 			</div>
 		</div>
 		<div class="theme pick_creation">
 			<div onclick="movieThemes()">
-				<img src="../img/themelist/Movie.png" alt="Make a movie">
+				<img src="/pages/img/themelist/Movie.png" alt="Make a movie">
 				<p>Movie</p>
 			</div>
 		</div>
@@ -119,7 +119,7 @@ module.exports = function (req, res, url) {
 	<div id="column1">
 		<div class="theme">
 			<a href="http://localhost:4343/cc_browser?themeId=family">
-				<img src="../img/themelist/Comedy_World.jpg" alt="Comedy World">
+				<img src="/pages/img/themelist/Comedy_World.jpg" alt="Comedy World">
 				<p>Comedy World</p>
 			</a>
 		</div>
