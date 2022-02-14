@@ -4,25 +4,6 @@ const rpc = require("../misc/rpc");
 const http = require("http");
 const env = require("../env");
 
-function toAttrString(table) {
-	return typeof table == "object"
-		? Object.keys(table)
-				.filter((key) => table[key] !== null)
-				.map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(table[key])}`)
-				.join("&")
-		: table.replace(/"/g, '\\"');
-}
-function toParamString(table) {
-	return Object.keys(table)
-		.map((key) => `<param name="${key}" value="${toAttrString(table[key])}">`)
-		.join(" ");
-}
-function toObjectString(attrs, params) {
-	return `<object ${Object.keys(attrs)
-		.map((key) => `${key}="${attrs[key].replace(/"/g, '\\"')}"`)
-		.join(" ")}>${toParamString(params)}</object>`;
-}
-
 if (env.DARK_MODE == "y") {
 	var globalcss = '/pages/css/global.css';
 	var createcss = '/pages/css/create.css';
@@ -47,6 +28,8 @@ module.exports = function (req, res, url) {
 			params = {
 				flashvars: {
 					movieId: "",
+					version: process.env.WRAPPER_VER,
+					build: process.env.WRAPPER_BLD,
 				},
 			};
 			break;
