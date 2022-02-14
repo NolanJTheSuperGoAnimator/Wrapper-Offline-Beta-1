@@ -4,13 +4,17 @@ const fUtil = require("../misc/file");
 const nodezip = require("node-zip");
 const base = Buffer.alloc(1, 0);
 const asset = require("./main");
+const movie = require("../movie/main");
+const starter = require("../starter/main");
 const http = require("http");
 
 async function listAssets(data, makeZip) {
 	var xmlString;
+	var files;
+	const chars;
 	switch (data.type) {
 		case "char": {
-			const chars = await asset.chars(data.themeId);
+			chars = await asset.chars(data.themeId);
 			xmlString = `${header}<ugc more="0">${chars
 				.map(
 					(v) =>
@@ -20,7 +24,7 @@ async function listAssets(data, makeZip) {
 			break;
 		}
 		case "bg": {
-			var files = asset.list(data.movieId, "bg");
+			files = asset.list(data.movieId, "bg");
 			xmlString = `${header}<ugc more="0">${files
 				.map((v) => `<background subtype="0" id="${v.id}" name="${v.name}" enable="Y"/>`)
 				.join("")}</ugc>`;
@@ -28,14 +32,14 @@ async function listAssets(data, makeZip) {
 		}
 		
 		case "sound": {
-				var files = asset.list(data.movieId, "sound");
-				xmlString = `${header}<ugc more="0">${files
-					.map((v) =>`<sound subtype="${v.subtype}" id="${v.id}" name="${v.name}" enable="Y" duration="${v.duration}" downloadtype="progressive"/>`)
-					.join("")}</ugc>`;
-				break;
+			files = asset.list(data.movieId, "sound");
+			xmlString = `${header}<ugc more="0">${files
+				.map((v) =>`<sound subtype="${v.subtype}" id="${v.id}" name="${v.name}" enable="Y" duration="${v.duration}" downloadtype="progressive"/>`)
+				.join("")}</ugc>`;
+			break;
 		}
 		case "movie": {
-			var files = asset.list(data.movieId, "starter");
+			files = movie.list();
 			xmlString = `${header}<ugc more="0">${files
 				.map(
 					(v) =>
@@ -44,9 +48,19 @@ async function listAssets(data, makeZip) {
 				.join("")}</ugc>`;
 			break;
 		}
+		case "starter": {
+			files = starter.list();
+			xmlString = `${header}<ugc more="0">${files
+				.map(
+				        (v) =>
+						`<starter id="${v.id}" numScene="1" title="${v.name}" thumbnail="/starter_thumbs/${v.id}.png" enc_asset_id="0Hi37q6Z4baC5Z_k8TyB-CA" itemRef="/alvin-dev/asset/63462">`
+				)
+				.join("")}</ugc>`;
+			break;
+		}
 		case "prop":
 		default: {
-			var files = asset.list(data.movieId, "prop");
+			files = asset.list(data.movieId, "prop");
 			xmlString = `${header}<ugc more="0">${files
 				.map((v) =>`<prop subtype="0" id="${v.id}" name="${v.name}" enable="Y" holdable="0" headable="0" placeable="1" facing="left" width="0" height="0" duration="0"/>`)
 				.join("")}</ugc>`;
@@ -66,6 +80,7 @@ async function listAssets(data, makeZip) {
 					fUtil.addToZip(zip, `${file.mode}/${file.id}`, buffer);
 					break;
 				}
+				case "starter":
 				case "movie": {
 					const buffer = asset.load(data.movieId, file.id);
 					fUtil.addToZip(zip, `${file.mode}/${file.id}`, buffer);
