@@ -1,9 +1,10 @@
+var mp3Duration = require("mp3-duration");
 const chars = require("../character/main");
 const fUtil = require("../misc/file");
 const caché = require("./caché");
-const mp3Duration = require("mp3-duration");
 
 module.exports = {
+
 	load(mId, aId) {
 		return caché.load(mId, aId);
 	},
@@ -20,36 +21,47 @@ module.exports = {
 			var name = aId.substr(0, dash);
 			var ext = aId.substr(dot + 1);
 			var fMode = aId.substr(dash + 1, dot - dash - 1);
-			switch (fMode) {
-				case "soundeffect":
-				case "voiceover":
-				case "bgmusic": {
-					var subtype = fMode
-					var fMode = 'sound'
+			switch (fMode) {	
+				case 'music':
+					var fMode = 'sound';
+					var subtype = 'bgmusic';
 					break;
-				}
-				default: {
+				case 'voiceover':
+					var fMode = 'sound';
+					var subtype = 'voiceover';
 					break;
-				}
+				case 'soundeffect':
+					var fMode = 'sound';
+					var subtype = 'soundeffect';
+					break;
 			}
 			if (fMode == mode) {
-				if (fMode == "sound") {
-					this.load(mId, aId).then(([buffer]) => {
-						mp3Duration(buffer, (e, d) => {
-							var dur = d * 1e3;
-							if (e || !dur) {
-								console.log('Asset loading failed');
-							}
-							ret.push({ id: aId, ext: ext, name: name, mode: fMode, subtype: subtype, duration: dur });
-						});
-					}).catch((e) => {
-						console.log('Asset loading failed');
-					});
+				if (fMode == 'sound') {
+					ret.push({ id: aId, ext: ext, name: name, mode: fMode, subtype: subtype});
 				} else {
-					ret.push({ id: aId, ext: ext, name: name, mode: fMode});
-				}
+				ret.push({ id: aId, ext: ext, name: name, mode: fMode });
+				
 			}
-		});
+
+			return new Promise(function (resolve, reject) {
+				console.log(`${process.env.caché}/${mode}.${aId}`);
+				mp3Duration(`${process.env.caché}/${mode}.${aId}`, (e, d) => {
+					var dur = d * 1e3;
+					console.log(dur);
+					var dot = aId.lastIndexOf(".");
+					var dash = aId.lastIndexOf("-");
+					var name = aId.substr(0, dash);
+					var ext = aId.substr(dot + 1);
+					var subtype = aId.substr(dash + 1, dot - dash - 1);
+					console.log(subtype);
+					ret.push({ id: aId, ext: ext, name: name, subtype: subtype, duration: dur });
+					console.log(ret);
+				});
+				resolve(ret);
+				reject(ret)
+			});
+		}
+	});
 		return ret;
 	},
 	listAll(mId) {
@@ -61,33 +73,7 @@ module.exports = {
 			var name = aId.substr(0, dash);
 			var ext = aId.substr(dot + 1);
 			var fMode = aId.substr(dash + 1, dot - dash - 1);
-			switch (fMode) {
-				case "soundeffect":
-				case "voiceover":
-				case "bgmusic": {
-					var subtype = fMode;
-					var fMode = "sound";
-					break;
-				}
-				default: { 
-					break;
-				}
-			}
-			if (fMode == "sound") {
-				this.load(mId, aId).then(([buffer]) => {
-					mp3Duration(buffer, (e, d) => {
-						var dur = d * 1e3;
-						if (e || !dur) {
-							var dur = '5000'
-						}
-						ret.push({ id: aId, ext: ext, name: name, mode: fMode, subtype: subtype, duration: dur });
-					});
-				}).catch((e) => {
-					console.log('Asset loading failed');
-				});
-			} else {
-				ret.push({ id: aId, ext: ext, name: name, mode: fMode });
-			}
+			ret.push({ id: aId, ext: ext, name: name, mode: fMode });
 		});
 		return ret;
 	},
