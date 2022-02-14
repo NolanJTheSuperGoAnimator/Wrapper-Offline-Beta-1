@@ -63,11 +63,11 @@ module.exports = {
 					if (isNaN(numId)) res();
 					switch (prefix) {
 						case "s": {
-							let filePath = fUtil.getFileIndex("starter-", ".xml", numId);
+							var filePath = fUtil.getFileIndex("starter-", ".xml", numId);
 							break;
 						}
 						case "m": {
-							let filePath = fUtil.getFileIndex("movie-", ".xml", numId);
+							var filePath = fUtil.getFileIndex("movie-", ".xml", numId);
 							break;
 						}
 					}
