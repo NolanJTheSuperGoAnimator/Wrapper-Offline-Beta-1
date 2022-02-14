@@ -52,7 +52,7 @@ module.exports = {
 			}
 		});
 	},
-	// The cores to load starter is in the main.js file in the movie folder. thanks for reading. -Joseph Animate 2021
+	// The cores to load starters is in the main.js file in the movie folder. thanks for reading. -Joseph Animate 2021
 	thumb(movieId) {
 		return new Promise(async (res, rej) => {
 			if (!movieId.startsWith("s-")) return;
