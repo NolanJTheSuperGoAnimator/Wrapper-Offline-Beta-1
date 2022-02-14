@@ -24,6 +24,10 @@ module.exports = {
 					var state = 'Making a Video'; 
 					break; 
 				}
+				case "th": { 
+					var state = 'Picking a Theme'; 
+					break; 
+				}
 				case "cc": { 
 					var state = 'Creating a Character'; 
 					break; 
