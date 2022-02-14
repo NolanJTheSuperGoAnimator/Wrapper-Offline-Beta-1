@@ -23,18 +23,12 @@ function toObjectString(attrs, params) {
 		.join(" ")}>${toParamString(params)}</object>`;
 }
 
-if (env.DEBUG_VM == "y") {
-	var utoken = '60';
-} else {
-	var utoken = '30';
-}
-
 if (env.DARK_MODE == "y") {
 	var globalcss = '/pages/css/global.css';
-	var swfcss = '/pages/css/swf.css';
+	var createcss = '/pages/css/create.css';
 } else {
 	var globalcss = '/pages/css/global-light.css';
-	var swfcss = '/pages/css/swf-light.css';
+	var createcss = '/pages/css/create-light.css';
 }
 /**
  * @param {http.IncomingMessage} req
@@ -46,161 +40,14 @@ module.exports = function (req, res, url) {
 	if (req.method != "GET") return;
 	const query = url.query;
 
-	var attrs, params, title;
+	var attrs, params, rpcValue;
 	switch (url.pathname) {
-		case "/cc": {
-			title = 'Character Creator';
-			rpcValue = "cc";
-			attrs = {
-				data: process.env.SWF_URL + '/cc.swf', // data: 'cc.swf',
-				type: 'application/x-shockwave-flash', 
-				id: 'char_creator',
-			};
+		case "/selectThemeOnEdit": {
+			rpcValue = "th";
 			params = {
 				flashvars: {
-					apiserver: "/",
-					storePath: process.env.STORE_URL + "/<store>",
-					clientThemePath: process.env.CLIENT_URL + "/<client_theme>",
-					original_asset_id: query["id"] || null,
-					themeId: "family",
-					ut: utoken,
-					bs: "adam",
-					appCode: "go",
-					page: "",
-					siteId: "go",
-					m_mode: "school",
-					isLogin: "Y",
-					isEmbed: 1,
-					ctc: "go",
-					tlang: "en_US",
-                    nextUrl: "/cc_browser",
+					movieId: "",
 				},
-				allowScriptAccess: "always",
-				movie: process.env.SWF_URL + "/cc.swf", // 'http://localhost/cc.swf'
-			};
-			break;
-		}
-
-		case "/cc_browser": {
-			title = "Character Browser";
-			rpcValue = "ccb";
-			attrs = {
-				data: process.env.SWF_URL + "/cc_browser.swf", // data: 'cc_browser.swf',
-				type: "application/x-shockwave-flash",
-				id: "char_browser",
-			};
-			params = {
-				flashvars: {
-					apiserver: "/",
-					storePath: process.env.STORE_URL + "/<store>",
-					clientThemePath: process.env.CLIENT_URL + "/<client_theme>",
-					original_asset_id: query["id"] || null,
-					themeId: "family",
-					ut: utoken,
-					appCode: "go",
-					page: "",
-					siteId: "go",
-					m_mode: "school",
-					isLogin: "Y",
-					retut: 1,
-					goteam_draft_only: 1,
-					isEmbed: 1,
-					ctc: "go",
-					tlang: "en_US",
-					lid: 13,
-				},
-				allowScriptAccess: "always",
-				movie: process.env.SWF_URL + "/cc_browser.swf", // 'http://localhost/cc_browser.swf'
-			};
-			break;
-		}
-
-		case "/go_full":
-		case "/go_full/tutorial": {
-			let presave =
-				query.movieId && query.movieId.startsWith("m")
-					? query.movieId
-					: `m-${fUtil[query.noAutosave ? "getNextFileId" : "fillNextFileId"]("movie-", ".xml")}`;
-			title = "Video Editor";
-			rpcValue = "vm";
-			attrs = {
-				data: process.env.SWF_URL + "/go_full.swf",
-				type: "application/x-shockwave-flash",
-				id: "video_maker",
-			};
-			params = {
-				flashvars: {
-					apiserver: "/",
-					storePath: process.env.STORE_URL + "/<store>",
-					isEmbed: 1,
-					ctc: "go",
-					ut: utoken,
-					bs: "default",
-					appCode: "go",
-					page: "",
-					siteId: "go",
-					lid: 13,
-					isLogin: "Y",
-					retut: 0,
-					clientThemePath: process.env.CLIENT_URL + "/<client_theme>",
-					themeId: "custom",
-					tlang: "en_US",
-					presaveId: presave,
-					goteam_draft_only: 1,
-					isWide: 1,
-					collab: 0,
-					nextUrl: "../pages/html/list.html",
-					noSkipTutorial: 1,
-				},
-				allowScriptAccess: "always",
-				allowFullScreen: "true",
-			};
-			break;
-		}
-
-		case "/player": {
-			title = "Video Player";
-			rpcValue = "vp";
-			attrs = {
-				data: process.env.SWF_URL + "/player.swf",
-				type: "application/x-shockwave-flash",
-				id: "video_player",
-			};
-			params = {
-				flashvars: {
-					apiserver: "/",
-					storePath: process.env.STORE_URL + "/<store>",
-					ut: utoken,
-					autostart: 1,
-					isWide: 1,
-					clientThemePath: process.env.CLIENT_URL + "/<client_theme>",
-				},
-				allowScriptAccess: "always",
-				allowFullScreen: "true",
-			};
-			break;
-		}
-
-		case "/recordWindow": {
-			title = "Record Window";
-			rpcValue = "vp";
-			attrs = {
-				data: process.env.SWF_URL + "/player.swf",
-				type: "application/x-shockwave-flash",
-				id: "video_player",
-				quality: "medium",
-			};
-			params = {
-				flashvars: {
-					apiserver: "/",
-					storePath: process.env.STORE_URL + "/<store>",
-					ut: utoken,
-					autostart: 0,
-					isWide: 1,
-					clientThemePath: process.env.CLIENT_URL + "/<client_theme>",
-				},
-				allowScriptAccess: "always",
-				allowFullScreen: "true",
 			};
 			break;
 		}
@@ -215,43 +62,354 @@ module.exports = function (req, res, url) {
 	}
 	// if you're seeing this, just know i hate doing this stuff - spark
 	res.end(`
-	<head>
-		<script>
-			document.title='${title}',flashvars=${JSON.stringify(params.flashvars)}
-		</script>
-		<script src="/pages/js/stuff.js"></script>
-		<script>
-			if(window.location.pathname == '/player' || window.location.pathname == '/go_full' || window.location.pathname == '/recordWindow' || window.location.pathname == '/go_full/tutorial') {
-				function hideHeader() {
-					$("#header").remove();
-				}
-			}
-		</script>
-		<link rel="stylesheet" type="text/css" href="/pages/css/modern-normalize.css">
-		<link rel="stylesheet" type="text/css" href="${globalcss}">
-		<link rel="stylesheet" type="text/css" href="${swfcss}">
-	</head>
+	<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="icon" href="../../favicon.ico" type="image/png">
+	<title>Theme List</title>
+	<meta name="description" content="Wrapper: Offline's Theme List">
+	<link rel="stylesheet" type="text/css" href="/pages/css/modern-normalize.css">
+	<link rel="stylesheet" type="text/css" href="${globalcss}">
+	<link rel="stylesheet" type="text/css" href="${createcss}">
+	<script>
+		function characterThemes() {
+			document.getElementById("creation_type").style.display = "none";
+			document.getElementById("character_themes").style.display = "block";
+			document.getElementById("back").style.display = "block";
+		}
+		
+		function movieThemes() {
+			document.getElementById("creation_type").style.display = "none";
+			document.getElementById("movie_themes").style.display = "block";
+			document.getElementById("back").style.display = "block";
+		}
+		
+		function creationType() {
+			document.getElementById("creation_type").style.display = "block";
+			document.getElementById("character_themes").style.display = "none";
+			document.getElementById("movie_themes").style.display = "none";
+			document.getElementById("back").style.display = "none";
+		}
+		
+		function showCredits() {
+			document.getElementById("credits").style.display="block";
+			document.getElementById("credits_button").style.display="none";
+		}
+	</script>
+</head>
+<body>
+
+<header>
+	<a href="/">
+		<h1 style="margin:0"><img id="logo" src="/pages/img/list_logo.svg" alt="Wrapper: Offline"/></h1>
+	</a>
+	<nav id="headbuttons">
+		<a class="button_small" id="back" onclick="creationType()" style="display: none">BACK</a>
+	</nav>
+</header>
+
+<main>
 	
-	<header id="header">
-		<a href="/">
-			<h1 style="margin:0"><img id="logo" src="/pages/img/list_logo.svg" alt="Wrapper: Offline"/></h1>
-		</a>
-		<nav id="headbuttons">
-			<div class="dropdown_contain button_small">
-				<div class="dropdown_button upload_button">UPLOAD</div>
-				<nav class="dropdown_menu">
-					<a onclick="document.getElementById('file').click()">Movie</a>
-					<a onclick="document.getElementById('file2').click()">Character</a>
-				</nav>
+<div id="creation_type" style="display: unset">
+	<h1>Pick a creation to continue.</h1>
+
+	<div id="column1">
+		<div class="theme pick_creation">
+			<div onclick="characterThemes()">
+				<img src="../img/themelist/Character.png" alt="Create a character">
+				<p>Character</p>
 			</div>
-			<a href="/pages/html/create.html" class="button_big">CREATE</a>
-		</nav>
-	</header>
+		</div>
+		<div class="theme pick_creation">
+			<div onclick="movieThemes()">
+				<img src="../img/themelist/Movie.png" alt="Make a movie">
+				<p>Movie</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="character_themes" style="display: none">
+	<h1>Select a theme for your character <small>One conatins a theme for your movie.</small></h1>
+
+	<div id="column1">
+		<div class="theme">
+			<a href="http://localhost:4343/cc_browser?themeId=family">
+				<img src="../img/themelist/Comedy_World.jpg" alt="Comedy World">
+				<p>Comedy World</p>
+			</a>
+		</div>
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=beta&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Yugandars_World_2.0.jpg" alt="Yugandar's World">
+				<p>Yugandar's World</p>
+			</a>
+		</div>
+		<div class="theme">
+			<a href="http://localhost:4343/cc_browser?themeId=cc2">
+				<img src="../img/themelist/lil_Peepz.jpg" alt="Lil' Peepz">
+				<p>Lil' Peepz</p>
+			</a>
+		</div>
+	</div><br />
+
+	<div id="column3">
+		<div class="theme">
+			<a href="http://localhost:4343/cc_browser?themeId=anime">
+				<img src="../img/themelist/Anime.jpg" alt="Anime">
+				<p>Anime</p>
+			</a>
+		</div>
+		<div class="theme">
+			<a href="http://localhost:4343/cc_browser?themeId=ninjaanime">
+				<img src="../img/themelist/Ninja_Anime.jpg" alt="Ninja Anime">
+				<p>Ninja Anime</p>
+			</a>
+		</div>
+		<div class="theme">
+			<a href="http://localhost:4343/cc_browser?themeId=spacecitizen">
+				<img src="../img/themelist/Space_Citizens.jpg" alt="Space Citizens">
+				<p>Space Citizens</p>
+			</a>
+		</div>
+	</div><br />
+
+	<div id="column4">
+		<div class="theme">
+			<a href="http://localhost:4343/cc_browser?themeId=chibi">
+				<img src="../img/themelist/Chibi_Peepz.jpg" alt="Chibi Peepz">
+				<p>Chibi Peepz</p>
+			</a>
+		</div>
+		<div class="theme">
+			<a href="http://localhost:4343/cc_browser?themeId=ninja">
+				<img src="../img/themelist/Chibi_Ninjas.jpg" alt="Chibi Ninjas">
+				<p>Chibi Ninjas</p>
+			</a>
+		</div>
+	</div><br />
+</div>
+
+<div id="movie_themes" style="display: none">
+	<h1>Select a theme for your movie</h1>
 	
-	<body onload="hideHeader()">
-		<main>
-			${toObjectString(attrs, params)}
-		</main>
-	${stuff.pages[url.pathname] || ''}</body>`)
+	<div id="column1">
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=custom&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Comedy_World.jpg" alt="Comedy World">
+				<p>Comedy World</p>
+			</a>
+		</div>
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=yugandar&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Yugandars_World_2.0.jpg" alt="Yugandar's World 2.0">
+				<p>Yugandar's World 2.0</p>
+			</a>
+		</div>
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=action&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/lil_Peepz.jpg" alt="Lil' Peepz">
+				<p>Lil' Peepz</p>
+			</a>
+		</div>
+	</div><br />
+
+	<div id="column2">
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=retro&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Cartoon_Classics.jpg" alt="Cartoon Classics">
+				<p>Cartoon Classics</p>
+			</a>
+		</div>
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=politics2&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Election_2012.jpg" alt="White Houserz">
+				<p>White Houserz</p>
+			</a>
+		</div>
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=politic&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Politics_and_Celebrity.png" alt="Politics &amp; Celebrity">
+				<p>Politics &amp; Celebrity</p>
+			</a>
+		</div>
+	</div><br />
+
+	<div id="column3">
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=stick&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Stick_Figure.jpg" alt="Stick Figure">
+				<p>Stick Figure</p>
+			</a>
+		</div>
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=anime&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Anime.jpg" alt="Anime">
+				<p>Anime</p>
+			</a>
+		</div>
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=ninjaanime&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Ninja_Anime.jpg" alt="Ninja Anime">
+				<p>Ninja Anime</p>
+			</a>
+		</div>
+	</div><br />
+
+	<div id="column4">
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=spacecitizen&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Space_Citizens.jpg" alt="Space Citizens">
+				<p>Space Citizens</p>
+			</a>
+		</div>
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=chibi&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Chibi_Peepz.jpg" alt="Chibi Peepz">
+				<p>Chibi Peepz</p>
+			</a>
+		</div>
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=ninja&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Chibi_Ninjas.jpg" alt="Chibi Ninjas">
+				<p>Chibi Ninjas</p>
+			</a>
+		</div>
+	</div><br />
+	<div id="column5">
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=animal&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Lil_Petz_World.jpg" alt="Lil' Petz World">
+				<p>Lil' Petz World</p>
+			</a>
+		</div>
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=space&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Space_Peepz.jpg" alt="Space Peepz">
+				<p>Space Peepz</p>
+			</a>
+		</div>
+		<!--EXTRATHEME<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=toonadv&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Toon_Adventure.png" alt="Toon Adventure">
+				<p>Toon Adventure</p>
+			</a>
+		</div>EXTRATHEME-->
+	</div>
+	<!--EXTRATHEME<div id="column6">
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=underdog&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/UnderDog.png" alt="Saturday Morning TV">
+				<p>Saturday Morning TV</p>
+			</a>
+		</div>
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=willie&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Willie_Nelson.jpg" alt="Willie Nelson">
+				<p>Willie Nelson</p>
+			</a>
+		</div>
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=fullenergy&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Full_Energy.png" alt="Full Energy">
+				<p>Full Energy</p>
+			</a>
+		</div>
+	</div>
+	<div id="column7">
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=akon&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Akon.jpg" alt="AKON">
+				<p>AKON</p>
+			</a>
+		</div>
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=ben10&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Ben_10.png" alt="Ben 10">
+				<p>Ben 10</p>
+			</a>
+		</div>
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=botdf&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/botdf.jpg" alt="BOTDF">
+				<p>Blood on the Dance Floor</p>
+			</a>
+		</div>
+	</div>
+	<div id="column8">
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=bunny&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Happy_Bunny.png" alt="It's Happy Bunny">
+				<p>It's Happy Bunny</p>
+			</a>
+		</div>
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=chowder&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Chowder.png" alt="Chowder">
+				<p>Chowder</p>
+			</a>
+		</div>
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=domo&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Domo.png" alt="Domo">
+				<p>Domo</p>
+			</a>
+		</div>
+	</div>
+	<div id="column9">
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=monkeytalk&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/SuperRica_&_Rashy.png" alt="SuperRica &amp; Rashy">
+				<p>SuperRica &amp; Rashy</p>
+			</a>
+		</div>
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=christmas&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Holiday_and_Seasonal.png" alt="Holiday &amp; Seasonal">
+				<p>Holiday &amp; Seasonal</p>
+			</a>
+		</div>
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=bizmodels&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Business_Models.jpg" alt="Business Models">
+				<p>Business Models</p>
+			</a>
+		</div>
+	</div>
+	<div id="column10">
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=sticklybiz&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Stickly_Business.jpg" alt="Stickly Business">
+				<p>Stickly Business</p>
+			</a>
+		</div>
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=vietnam&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/lil_Peepz.jpg" alt="Jungle Warfare">
+				<p>Jungle Warfare</p>
+			</a>
+		</div>
+		<div class="theme">
+			<a href="http://localhost:4343/go_full?tray=monstermsh&movieId=${params.flashvars.movieId}">
+				<img src="../img/themelist/Monsters_Mayhem.png" alt="Monsters Mayhem">
+				<p>Monsters Mayhem</p>
+			</a>
+		</div>
+	</div>EXTRATHEME-->
+</div>
+
+</main>
+
+<footer>
+	<nav id="foot-left">
+		<span title="Wrapper: Offline vWRAPPER_VER, build WRAPPER_BLD">vWRAPPER_VER</span>
+		<a href="https://localhost:4664/faq.html">FAQ</a>
+		<a href="https://localhost:4664">Server Page</a>
+		<a href="https://discord.gg/yhGAetN">Wrapper: Offline Discord</a>
+	</nav>
+</footer>
+
+</body></html>`)
 	return true;
 };
