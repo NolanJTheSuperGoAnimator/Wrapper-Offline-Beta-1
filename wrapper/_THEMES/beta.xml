@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<theme id="yugandar" name="Yugandar's World">
+<theme id="beta" name="Yugandar's World">
         <char id="phone" name="Phone" thumb="on the phone.swf" facing="left" default="on the phone.swf" motion="on the phone.swf" enable="Y" is_premium="N" aid="237" money="0" sharing="0">
         <action id="on the phone.swf" name="On The Phone" loop="Y" totalframe="1" enable="Y" aid="238"/>
         </char>
