@@ -386,7 +386,7 @@ module.exports = function (req, res, url) {
 
 <footer>
 	<nav id="foot-left">
-		<span title="Wrapper: Offline vWRAPPER_VER, build WRAPPER_BLD">vWRAPPER_VER</span>
+		<span title="Wrapper: Offline v${params.flashvars.version}, build ${params.flashvars.build}">v${params.flashvars.version}</span>
 		<a href="https://localhost:4664/faq.html">FAQ</a>
 		<a href="https://localhost:4664">Server Page</a>
 		<a href="https://discord.gg/yhGAetN">Wrapper: Offline Discord</a>
