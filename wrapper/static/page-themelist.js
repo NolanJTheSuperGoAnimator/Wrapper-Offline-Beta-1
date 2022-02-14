@@ -44,8 +44,7 @@ module.exports = function (req, res, url) {
 		rpc.setActivity(rpcValue);
 	}
 	// if you're seeing this, just know i hate doing this stuff - spark
-	res.end(`
-	<!DOCTYPE html>
+	res.end(`<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -125,13 +124,13 @@ module.exports = function (req, res, url) {
 		</div>
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=beta&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Yugandars_World_2.0.jpg" alt="Yugandar's World">
+				<img src="/pages/img/themelist/Yugandars_World_2.0.jpg" alt="Yugandar's World">
 				<p>Yugandar's World</p>
 			</a>
 		</div>
 		<div class="theme">
 			<a href="http://localhost:4343/cc_browser?themeId=cc2">
-				<img src="../img/themelist/lil_Peepz.jpg" alt="Lil' Peepz">
+				<img src="/pages/img/themelist/lil_Peepz.jpg" alt="Lil' Peepz">
 				<p>Lil' Peepz</p>
 			</a>
 		</div>
@@ -140,19 +139,19 @@ module.exports = function (req, res, url) {
 	<div id="column3">
 		<div class="theme">
 			<a href="http://localhost:4343/cc_browser?themeId=anime">
-				<img src="../img/themelist/Anime.jpg" alt="Anime">
+				<img src="/pages/img/themelist/Anime.jpg" alt="Anime">
 				<p>Anime</p>
 			</a>
 		</div>
 		<div class="theme">
 			<a href="http://localhost:4343/cc_browser?themeId=ninjaanime">
-				<img src="../img/themelist/Ninja_Anime.jpg" alt="Ninja Anime">
+				<img src="/pages/img/themelist/Ninja_Anime.jpg" alt="Ninja Anime">
 				<p>Ninja Anime</p>
 			</a>
 		</div>
 		<div class="theme">
 			<a href="http://localhost:4343/cc_browser?themeId=spacecitizen">
-				<img src="../img/themelist/Space_Citizens.jpg" alt="Space Citizens">
+				<img src="/pages/img/themelist/Space_Citizens.jpg" alt="Space Citizens">
 				<p>Space Citizens</p>
 			</a>
 		</div>
@@ -161,13 +160,13 @@ module.exports = function (req, res, url) {
 	<div id="column4">
 		<div class="theme">
 			<a href="http://localhost:4343/cc_browser?themeId=chibi">
-				<img src="../img/themelist/Chibi_Peepz.jpg" alt="Chibi Peepz">
+				<img src="/pages/img/themelist/Chibi_Peepz.jpg" alt="Chibi Peepz">
 				<p>Chibi Peepz</p>
 			</a>
 		</div>
 		<div class="theme">
 			<a href="http://localhost:4343/cc_browser?themeId=ninja">
-				<img src="../img/themelist/Chibi_Ninjas.jpg" alt="Chibi Ninjas">
+				<img src="/pages/img/themelist/Chibi_Ninjas.jpg" alt="Chibi Ninjas">
 				<p>Chibi Ninjas</p>
 			</a>
 		</div>
@@ -180,19 +179,19 @@ module.exports = function (req, res, url) {
 	<div id="column1">
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=custom&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Comedy_World.jpg" alt="Comedy World">
+				<img src="/pages/img/themelist/Comedy_World.jpg" alt="Comedy World">
 				<p>Comedy World</p>
 			</a>
 		</div>
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=yugandar&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Yugandars_World_2.0.jpg" alt="Yugandar's World 2.0">
+				<img src="/pages/img/themelist/Yugandars_World_2.0.jpg" alt="Yugandar's World 2.0">
 				<p>Yugandar's World 2.0</p>
 			</a>
 		</div>
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=action&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/lil_Peepz.jpg" alt="Lil' Peepz">
+				<img src="/pages/img/themelist/lil_Peepz.jpg" alt="Lil' Peepz">
 				<p>Lil' Peepz</p>
 			</a>
 		</div>
@@ -201,19 +200,19 @@ module.exports = function (req, res, url) {
 	<div id="column2">
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=retro&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Cartoon_Classics.jpg" alt="Cartoon Classics">
+				<img src="/pages/img/themelist/Cartoon_Classics.jpg" alt="Cartoon Classics">
 				<p>Cartoon Classics</p>
 			</a>
 		</div>
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=politics2&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Election_2012.jpg" alt="White Houserz">
+				<img src="/pages/img/themelist/Election_2012.jpg" alt="White Houserz">
 				<p>White Houserz</p>
 			</a>
 		</div>
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=politic&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Politics_and_Celebrity.png" alt="Politics &amp; Celebrity">
+				<img src="/pages/img/themelist/Politics_and_Celebrity.png" alt="Politics &amp; Celebrity">
 				<p>Politics &amp; Celebrity</p>
 			</a>
 		</div>
@@ -222,19 +221,19 @@ module.exports = function (req, res, url) {
 	<div id="column3">
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=stick&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Stick_Figure.jpg" alt="Stick Figure">
+				<img src="/pages/img/themelist/Stick_Figure.jpg" alt="Stick Figure">
 				<p>Stick Figure</p>
 			</a>
 		</div>
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=anime&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Anime.jpg" alt="Anime">
+				<img src="/pages/img/themelist/Anime.jpg" alt="Anime">
 				<p>Anime</p>
 			</a>
 		</div>
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=ninjaanime&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Ninja_Anime.jpg" alt="Ninja Anime">
+				<img src="/pages/img/themelist/Ninja_Anime.jpg" alt="Ninja Anime">
 				<p>Ninja Anime</p>
 			</a>
 		</div>
@@ -243,19 +242,19 @@ module.exports = function (req, res, url) {
 	<div id="column4">
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=spacecitizen&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Space_Citizens.jpg" alt="Space Citizens">
+				<img src="/pages/img/themelist/Space_Citizens.jpg" alt="Space Citizens">
 				<p>Space Citizens</p>
 			</a>
 		</div>
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=chibi&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Chibi_Peepz.jpg" alt="Chibi Peepz">
+				<img src="/pages/img/themelist/Chibi_Peepz.jpg" alt="Chibi Peepz">
 				<p>Chibi Peepz</p>
 			</a>
 		</div>
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=ninja&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Chibi_Ninjas.jpg" alt="Chibi Ninjas">
+				<img src="/pages/img/themelist/Chibi_Ninjas.jpg" alt="Chibi Ninjas">
 				<p>Chibi Ninjas</p>
 			</a>
 		</div>
@@ -263,19 +262,19 @@ module.exports = function (req, res, url) {
 	<div id="column5">
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=animal&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Lil_Petz_World.jpg" alt="Lil' Petz World">
+				<img src="/pages/img/themelist/Lil_Petz_World.jpg" alt="Lil' Petz World">
 				<p>Lil' Petz World</p>
 			</a>
 		</div>
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=space&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Space_Peepz.jpg" alt="Space Peepz">
+				<img src="/pages/img/themelist/Space_Peepz.jpg" alt="Space Peepz">
 				<p>Space Peepz</p>
 			</a>
 		</div>
 		<!--EXTRATHEME<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=toonadv&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Toon_Adventure.png" alt="Toon Adventure">
+				<img src="/pages/img/themelist/Toon_Adventure.png" alt="Toon Adventure">
 				<p>Toon Adventure</p>
 			</a>
 		</div>EXTRATHEME-->
@@ -283,19 +282,19 @@ module.exports = function (req, res, url) {
 	<!--EXTRATHEME<div id="column6">
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=underdog&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/UnderDog.png" alt="Saturday Morning TV">
+				<img src="/pages/img/themelist/UnderDog.png" alt="Saturday Morning TV">
 				<p>Saturday Morning TV</p>
 			</a>
 		</div>
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=willie&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Willie_Nelson.jpg" alt="Willie Nelson">
+				<img src="/pages/img/themelist/Willie_Nelson.jpg" alt="Willie Nelson">
 				<p>Willie Nelson</p>
 			</a>
 		</div>
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=fullenergy&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Full_Energy.png" alt="Full Energy">
+				<img src="/pages/img/themelist/Full_Energy.png" alt="Full Energy">
 				<p>Full Energy</p>
 			</a>
 		</div>
@@ -303,19 +302,19 @@ module.exports = function (req, res, url) {
 	<div id="column7">
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=akon&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Akon.jpg" alt="AKON">
+				<img src="/pages/img/themelist/Akon.jpg" alt="AKON">
 				<p>AKON</p>
 			</a>
 		</div>
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=ben10&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Ben_10.png" alt="Ben 10">
+				<img src="/pages/img/themelist/Ben_10.png" alt="Ben 10">
 				<p>Ben 10</p>
 			</a>
 		</div>
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=botdf&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/botdf.jpg" alt="BOTDF">
+				<img src="/pages/img/themelist/botdf.jpg" alt="BOTDF">
 				<p>Blood on the Dance Floor</p>
 			</a>
 		</div>
@@ -323,19 +322,19 @@ module.exports = function (req, res, url) {
 	<div id="column8">
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=bunny&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Happy_Bunny.png" alt="It's Happy Bunny">
+				<img src="/pages/img/themelist/Happy_Bunny.png" alt="It's Happy Bunny">
 				<p>It's Happy Bunny</p>
 			</a>
 		</div>
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=chowder&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Chowder.png" alt="Chowder">
+				<img src="/pages/img/themelist/Chowder.png" alt="Chowder">
 				<p>Chowder</p>
 			</a>
 		</div>
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=domo&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Domo.png" alt="Domo">
+				<img src="/pages/img/themelist/Domo.png" alt="Domo">
 				<p>Domo</p>
 			</a>
 		</div>
@@ -343,19 +342,19 @@ module.exports = function (req, res, url) {
 	<div id="column9">
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=monkeytalk&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/SuperRica_&_Rashy.png" alt="SuperRica &amp; Rashy">
+				<img src="/pages/img/themelist/SuperRica_&_Rashy.png" alt="SuperRica &amp; Rashy">
 				<p>SuperRica &amp; Rashy</p>
 			</a>
 		</div>
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=christmas&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Holiday_and_Seasonal.png" alt="Holiday &amp; Seasonal">
+				<img src="/pages/img/themelist/Holiday_and_Seasonal.png" alt="Holiday &amp; Seasonal">
 				<p>Holiday &amp; Seasonal</p>
 			</a>
 		</div>
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=bizmodels&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Business_Models.jpg" alt="Business Models">
+				<img src="/pages/img/themelist/Business_Models.jpg" alt="Business Models">
 				<p>Business Models</p>
 			</a>
 		</div>
@@ -363,19 +362,19 @@ module.exports = function (req, res, url) {
 	<div id="column10">
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=sticklybiz&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Stickly_Business.jpg" alt="Stickly Business">
+				<img src="/pages/img/themelist/Stickly_Business.jpg" alt="Stickly Business">
 				<p>Stickly Business</p>
 			</a>
 		</div>
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=vietnam&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/lil_Peepz.jpg" alt="Jungle Warfare">
+				<img src="/pages/img/themelist/lil_Peepz.jpg" alt="Jungle Warfare">
 				<p>Jungle Warfare</p>
 			</a>
 		</div>
 		<div class="theme">
 			<a href="http://localhost:4343/go_full?tray=monstermsh&movieId=${params.flashvars.movieId}">
-				<img src="../img/themelist/Monsters_Mayhem.png" alt="Monsters Mayhem">
+				<img src="/pages/img/themelist/Monsters_Mayhem.png" alt="Monsters Mayhem">
 				<p>Monsters Mayhem</p>
 			</a>
 		</div>
