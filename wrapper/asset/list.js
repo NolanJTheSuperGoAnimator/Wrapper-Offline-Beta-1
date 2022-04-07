@@ -4,6 +4,7 @@ const fUtil = require("../misc/file");
 const nodezip = require("node-zip");
 const base = Buffer.alloc(1, 0);
 const asset = require("./main");
+const starter = require("../starter/main");
 const http = require("http");
 
 async function listAssets(data, makeZip) {
