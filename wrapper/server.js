@@ -19,6 +19,8 @@ const mvu = require("./movie/upload");
 const asu = require("./asset/upload");
 const stl = require("./static/load");
 const stp = require("./static/page");
+const sts = require("./starter/save");
+const stt = require("./starter/thmb");
 const the = require("./static/page-themelist");
 const asl = require("./asset/load");
 const asL = require("./asset/list");
@@ -33,7 +35,7 @@ const thl = require("./theme/load");
 const tsv = require("./tts/voices");
 const tsl = require("./tts/load");
 const rpc = require("./misc/rpc");
-const functions = [mvL, pmc, asl, chl, thl, thL, chs, chu, cht, asL, tsl, chr, ast, mvm, mvl, mvs, mvt, tsv, asu, mvu, stp, stl, the, rpc];
+const functions = [mvL, pmc, asl, chl, thl, thL, chs, chu, cht, asL, tsl, chr, ast, mvm, mvl, mvs, mvt, tsv, asu, mvu, stp, stl, sts, stt, the, rpc];
 
 /**
  * create the server
