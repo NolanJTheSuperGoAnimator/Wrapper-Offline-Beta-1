@@ -57,10 +57,20 @@ module.exports = {
 					res(data.subarray(data.indexOf(80)));
 					break;
 				}
+				case "s":
 				case "m": {
 					let numId = Number.parseInt(suffix);
 					if (isNaN(numId)) res();
-					let filePath = fUtil.getFileIndex("movie-", ".xml", numId);
+					switch (prefix) {
+						case "s": {
+							var filePath = fUtil.getFileIndex("starter-", ".xml", numId);
+							break;
+						}
+						case "m": {
+							var filePath = fUtil.getFileIndex("movie-", ".xml", numId);
+							break;
+						}
+					}
 					if (!fs.existsSync(filePath)) res();
 
 					const buffer = fs.readFileSync(filePath);
@@ -68,7 +78,7 @@ module.exports = {
 
 					try {
 						parse.packMovie(buffer, mId).then((pack) => {
-						parse.packXml(buffer, mId).then(v => res(v));
+						parse.unPackXml(buffer, mId).then(v => res(v));
 							caché.saveTable(mId, pack.caché);
 							res(pack.zipBuf);
 						});
