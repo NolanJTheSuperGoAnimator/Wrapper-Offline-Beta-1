@@ -20,7 +20,7 @@ async function listAssets(data, makeZip) {
 			break;
 		}
 		case "bg": {
-			var files = asset.list(data.movieId, "bg");
+			files = asset.list(data.movieId, "bg");
 			xmlString = `${header}<ugc more="0">${files
 				.map((v) => `<background subtype="0" id="${v.id}" name="${v.name}" enable="Y"/>`)
 				.join("")}</ugc>`;
@@ -28,25 +28,25 @@ async function listAssets(data, makeZip) {
 		}
 		
 		case "sound": {
-				var files = asset.list(data.movieId, "sound");
+				files = asset.list(data.movieId, "sound");
 				xmlString = `${header}<ugc more="0">${files
 					.map((v) =>`<sound subtype="${v.subtype}" id="${v.id}" name="${v.name}" enable="Y" duration="${v.duration}" downloadtype="progressive"/>`)
 					.join("")}</ugc>`;
 				break;
 		}
 		case "movie": {
-			var files = asset.list(data.movieId, "starter");
+			files = starter.list()
 			xmlString = `${header}<ugc more="0">${files
 				.map(
 					(v) =>
-						`<movie id="${v.id}" path="/_SAVED/${v.id}" numScene="1" title="${v.name}" thumbnail_url="/movie_thumbs/${v.id}.png"><tags></tags></movie>`
+						`<movie id="${v.id}" path="/_SAVED/${v.id}" numScene="1" title="${v.name}" thumbnail_url="/starter_thumbs/${v.id}.png"><tags></tags></movie>`
 				)
 				.join("")}</ugc>`;
 			break;
 		}
 		case "prop":
 		default: {
-			var files = asset.list(data.movieId, "prop");
+			files = asset.list(data.movieId, "prop");
 			xmlString = `${header}<ugc more="0">${files
 				.map((v) =>`<prop subtype="0" id="${v.id}" name="${v.name}" enable="Y" holdable="0" headable="0" placeable="1" facing="left" width="0" height="0" duration="0"/>`)
 				.join("")}</ugc>`;
