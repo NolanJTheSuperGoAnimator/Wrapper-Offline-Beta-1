@@ -78,7 +78,7 @@ module.exports = {
 
 					try {
 						parse.packMovie(buffer, mId).then((pack) => {
-						parse.unPackXml(buffer, mId).then(v => res(v));
+						parse.unpackXml(buffer, mId).then(v => res(v));
 							caché.saveTable(mId, pack.caché);
 							res(pack.zipBuf);
 						});
